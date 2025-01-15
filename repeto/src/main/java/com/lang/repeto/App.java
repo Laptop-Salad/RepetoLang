@@ -13,6 +13,7 @@ public class App {
         StringBuilder lines = new StringBuilder();
         Scanner sc;
         Lexer lexer;
+        Parser parser;
 
         try {
             file = new File(System.getProperty("user.dir") + "/examples/MyAge.repeto");
@@ -26,8 +27,10 @@ public class App {
             sc.close();
 
             lexer = new Lexer(lines.toString());
-
             lexer.lex();
+
+            parser = new Parser(lexer.getTokens());
+            parser.parse();
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             System.exit(0);
