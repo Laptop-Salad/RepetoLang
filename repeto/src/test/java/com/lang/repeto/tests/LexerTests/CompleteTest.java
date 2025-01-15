@@ -1,4 +1,4 @@
-package com.lang.repeto;
+package com.lang.repeto.tests.LexerTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-public class LexerTest {
+import com.lang.repeto.Lexer;
+import com.lang.repeto.Token;
+import com.lang.repeto.TokenType;
+
+public class CompleteTest {
     @Test
     public void canTokenize5Add5() {
         Lexer lexer = new Lexer("5 + 5");
