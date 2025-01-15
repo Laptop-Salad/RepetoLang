@@ -128,4 +128,6 @@ public class Lexer {
 
         return false;
     }
+
+    public ArrayList<Token> getTokens() { return this.tokens; }
 }
