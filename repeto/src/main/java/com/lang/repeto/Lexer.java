@@ -15,10 +15,11 @@ public class Lexer {
 
     public void lex() {
         for (;;) {
-            if (!this.hasNext()) { break; }
             char character = this.current();
 
             this.eat(character);
+
+            if (!this.hasNext()) { break; }
 
             this.next();
         }
@@ -29,7 +30,7 @@ public class Lexer {
     }
 
     public boolean hasNext() {
-        return this.index < this.lines.length;
+        return this.index + 1 < this.lines.length;
     }
 
     public char peek() {
@@ -53,7 +54,12 @@ public class Lexer {
             case '-': addToken(TokenType.MINUS); break;
             case ';': addToken(TokenType.SEMICOLON); break;
 
-            case '*': addToken(match('*') ? TokenType.POWER_OF : TokenType.TIMES); break;
+            case '*': 
+                addToken(match('*') ? TokenType.POWER_OF : TokenType.TIMES); 
+                break;
+            case '=': 
+                addToken(match('=') ? TokenType.EQUALS_EQUALS : TokenType.EQUALS); 
+                break;
 
             case '/':
                 StringBuilder stringBuilder = new StringBuilder();
@@ -69,12 +75,12 @@ public class Lexer {
                 }
 
                 break;
+            
+            case '$': this.handleIdentifier(); break;
 
             default:
                 if (Character.isDigit(character)) {
                     this.handleDigits();
-                } else if (Character.isAlphabetic(character)) {
-                    this.handleIdentifier();
                 } else {
                     System.out.println("Invalid character");
                 }
@@ -87,12 +93,11 @@ public class Lexer {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(this.current());
-        this.next();
 
         while (this.hasNext() && Character.isDigit(this.peek())) {
-            stringBuilder.append(this.current());
-
             this.next();
+
+            stringBuilder.append(this.current());
         }
 
         addToken(TokenType.INTEGER, stringBuilder.toString());
@@ -101,12 +106,10 @@ public class Lexer {
     public void handleIdentifier() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(this.current());
-
-        while (this.hasNext() && Character.isAlphabetic(this.peek())) {
-            stringBuilder.append(this.current());
-
+        while (this.hasNext() && !Character.isWhitespace(this.peek())) {
             this.next();
+
+            stringBuilder.append(this.current());
         }
 
         addToken(TokenType.IDENTIFIER, stringBuilder.toString());
@@ -121,7 +124,7 @@ public class Lexer {
     }
 
     private boolean match(char expected) {
-        if (this.hasNext() && this.current() == expected) { 
+        if (this.hasNext() && this.peek() == expected) { 
             next();
             return true; 
         }

@@ -11,6 +11,8 @@ public enum TokenType {
     POWER_OF,
 
     EQUALS,
+
+    EQUALS_EQUALS,
     
     INTEGER,
     
