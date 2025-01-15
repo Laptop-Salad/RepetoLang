@@ -1,4 +1,4 @@
-package RepetoLang;
+package com.lang.repeto;
 
 public class Token {
     private String value;

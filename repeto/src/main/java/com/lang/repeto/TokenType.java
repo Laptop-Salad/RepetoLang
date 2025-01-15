@@ -1,4 +1,4 @@
-package RepetoLang;
+package com.lang.repeto;
 
 public enum TokenType {
     OUT,

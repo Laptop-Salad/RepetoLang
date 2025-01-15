@@ -1,10 +1,13 @@
-package RepetoLang;
+package com.lang.repeto;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Main {
+/**
+ * Hello world!
+ */
+public class App {
     public static void main(String[] args) {
         File file;
         StringBuilder lines = new StringBuilder();
