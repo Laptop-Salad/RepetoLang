@@ -16,7 +16,7 @@ out $my_age;
 
 # Variables
 ```
-$my_age = $my_birth_year - $current_year;
+$my_age = current_year - $my_birth_year;
 
 out $my_age;
 ```
