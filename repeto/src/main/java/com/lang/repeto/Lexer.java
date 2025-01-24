@@ -23,6 +23,8 @@ public class Lexer {
 
             this.next();
         }
+
+        this.addToken(TokenType.EOF);
     }
 
     public Token getToken(char character) {

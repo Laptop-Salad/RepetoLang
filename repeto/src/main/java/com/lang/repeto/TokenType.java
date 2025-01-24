@@ -21,5 +21,7 @@ public enum TokenType {
     COMMENT,
 
     OPENING_PARENTHESIS,
-    CLOSING_PARENTHESIS;
+    CLOSING_PARENTHESIS,
+
+    EOF;
 }
