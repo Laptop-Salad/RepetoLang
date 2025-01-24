@@ -1,10 +1,10 @@
-package com.lang.repeto;
+package main.java.com.lang.repeto;
 
 import java.util.ArrayList;
 
 public class Lexer {
-    private char[] lines;
-    private ArrayList<Token> tokens;
+    private final char[] lines;
+    private final ArrayList<Token> tokens;
 
     private int index = 0;
 
@@ -53,6 +53,8 @@ public class Lexer {
             case '+': addToken(TokenType.PLUS); break;
             case '-': addToken(TokenType.MINUS); break;
             case ';': addToken(TokenType.SEMICOLON); break;
+            case '(': addToken(TokenType.OPENING_PARENTHESIS); break;
+            case ')': addToken(TokenType.CLOSING_PARENTHESIS); break;
 
             case '*': 
                 addToken(match('*') ? TokenType.POWER_OF : TokenType.TIMES); 
@@ -76,11 +78,13 @@ public class Lexer {
 
                 break;
             
-            case '$': this.handleIdentifier(); break;
+            case '$': this.handleVariable(); break;
 
             default:
                 if (Character.isDigit(character)) {
                     this.handleDigits();
+                } else if (Character.isLetter(character)) {
+                    this.handleIdentifier();
                 } else {
                     System.out.println("Invalid character");
                 }
@@ -103,10 +107,32 @@ public class Lexer {
         addToken(TokenType.INTEGER, stringBuilder.toString());
     }
 
+    public void handleVariable() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (
+                this.hasNext() &&
+                !Character.isWhitespace(this.peek()) &&
+                (Character.isAlphabetic(this.peek()) || Character.isDigit(this.peek()) || this.peek() == '_')
+        ) {
+            this.next();
+
+            stringBuilder.append(this.current());
+        }
+
+        addToken(TokenType.VARIABLE, stringBuilder.toString());
+    }
+
     public void handleIdentifier() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        while (this.hasNext() && !Character.isWhitespace(this.peek())) {
+        stringBuilder.append(this.current());
+
+        while (
+                this.hasNext() &&
+                !Character.isWhitespace(this.peek()) &&
+                (Character.isAlphabetic(this.peek()) || Character.isDigit(this.peek()) || this.peek() == '_')
+        ) {
             this.next();
 
             stringBuilder.append(this.current());
@@ -114,6 +140,7 @@ public class Lexer {
 
         addToken(TokenType.IDENTIFIER, stringBuilder.toString());
     }
+
 
     public void addToken(TokenType tokenType) {
         this.tokens.add(new Token(tokenType, null));

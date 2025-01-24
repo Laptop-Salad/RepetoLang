@@ -1,4 +1,4 @@
-package com.lang.repeto;
+package main.java.com.lang.repeto;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.lang.repeto.tests.LexerTests;
+package tests.LexerTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import com.lang.repeto.Lexer;
-import com.lang.repeto.Token;
-import com.lang.repeto.TokenType;
+import main.java.com.lang.repeto.Lexer;
+import main.java.com.lang.repeto.Token;
+import main.java.com.lang.repeto.TokenType;
 
 public class CompleteTest {
     @Test

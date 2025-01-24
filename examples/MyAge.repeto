@@ -1,1 +1,2 @@
 $my_age = 2024 - 2000;
+print($my_age);

@@ -1,7 +1,7 @@
-package com.lang.repeto;
+package main.java.com.lang.repeto;
 
 public enum TokenType {
-    OUT,
+    VARIABLE,
     IDENTIFIER,
 
     PLUS,
@@ -18,5 +18,8 @@ public enum TokenType {
     
     SEMICOLON,
     
-    COMMENT;
+    COMMENT,
+
+    OPENING_PARENTHESIS,
+    CLOSING_PARENTHESIS;
 }

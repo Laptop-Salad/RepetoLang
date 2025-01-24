@@ -1,8 +1,8 @@
-package com.lang.repeto;
+package main.java.com.lang.repeto;
 
 public class Token {
-    private String value;
-    private TokenType tokenType;
+    private final String value;
+    private final TokenType tokenType;
 
     public Token(TokenType tokenType, String value) {
         System.out.print(value);
