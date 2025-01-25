@@ -18,5 +18,5 @@ out $my_age;
 ```
 $my_age = current_year - $my_birth_year;
 
-out $my_age;
+print($my_age);
 ```
