@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        File file = new File(System.getProperty("user.dir") + "/examples/MyAge.repeto");
+        File file = new File(System.getProperty("user.dir") + "/examples/MyAge.repetso");
         StringBuilder lines = new StringBuilder();
         Lexer lexer;
         Parser parser;
@@ -16,7 +16,7 @@ public class App {
                 lines.append(sc.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            System.out.println("File not found " + file.getAbsolutePath());
             System.exit(0);
         }
 
