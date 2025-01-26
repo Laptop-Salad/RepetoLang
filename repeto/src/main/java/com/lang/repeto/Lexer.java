@@ -1,6 +1,7 @@
 package main.java.com.lang.repeto;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Lexer {
     private final char[] lines;
@@ -27,10 +28,6 @@ public class Lexer {
         this.addToken(TokenType.EOF);
     }
 
-    public Token getToken(char character) {
-        return new Token(null, null);
-    }
-
     public boolean hasNext() {
         return this.index + 1 < this.lines.length;
     }
@@ -50,7 +47,8 @@ public class Lexer {
             case ' ':
             case '\r':
             case '\t':
-                break;        
+            case '\n':
+                break;
 
             case '+': addToken(TokenType.PLUS); break;
             case '-': addToken(TokenType.MINUS); break;
@@ -88,59 +86,52 @@ public class Lexer {
                 } else if (Character.isLetter(character)) {
                     this.handleIdentifier();
                 } else {
-                    System.out.println("Invalid character");
+                    throw new IllegalArgumentException("Invalid character encountered: " + character);
                 }
 
                 break;
         }
     }
 
-    public void handleDigits() {
+    private String consumeWhile(Predicate<Character> condition) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(this.current());
 
-        while (this.hasNext() && Character.isDigit(this.peek())) {
+        while (this.hasNext() && condition.test(this.peek())) {
             this.next();
-
             stringBuilder.append(this.current());
         }
 
-        addToken(TokenType.INTEGER, stringBuilder.toString());
+        return stringBuilder.toString();
+    }
+
+    public void handleDigits() {
+        String value = consumeWhile(Character::isDigit);
+
+        addToken(TokenType.INTEGER, value);
     }
 
     public void handleVariable() {
-        StringBuilder stringBuilder = new StringBuilder();
+        // skip $
+        this.next();
 
-        while (
-                this.hasNext() &&
-                !Character.isWhitespace(this.peek()) &&
-                (Character.isAlphabetic(this.peek()) || Character.isDigit(this.peek()) || this.peek() == '_')
-        ) {
-            this.next();
+        String value = consumeWhile(ch ->
+            Character.isAlphabetic(ch) ||
+            Character.isDigit(ch) ||
+            ch == '_'
+        );
 
-            stringBuilder.append(this.current());
-        }
-
-        addToken(TokenType.VARIABLE, stringBuilder.toString());
+        addToken(TokenType.VARIABLE, value);
     }
 
     public void handleIdentifier() {
-        StringBuilder stringBuilder = new StringBuilder();
+        String value = consumeWhile(ch ->
+            !Character.isWhitespace(ch) &&
+            (Character.isAlphabetic(ch) || Character.isDigit(ch) || ch == '_')
+        );
 
-        stringBuilder.append(this.current());
-
-        while (
-                this.hasNext() &&
-                !Character.isWhitespace(this.peek()) &&
-                (Character.isAlphabetic(this.peek()) || Character.isDigit(this.peek()) || this.peek() == '_')
-        ) {
-            this.next();
-
-            stringBuilder.append(this.current());
-        }
-
-        addToken(TokenType.IDENTIFIER, stringBuilder.toString());
+        addToken(TokenType.IDENTIFIER, value);
     }
 
 

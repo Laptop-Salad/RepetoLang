@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        File file = new File(System.getProperty("user.dir") + "/examples/MyAge.repetso");
+        File file = new File(System.getProperty("user.dir") + "/examples/MyAge.repeto");
         StringBuilder lines = new StringBuilder();
         Lexer lexer;
         Parser parser;
