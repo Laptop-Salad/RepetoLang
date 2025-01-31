@@ -1,5 +1,7 @@
 package main.java.com.lang.repeto;
 
+import main.java.com.lang.repeto.parser.Parser;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -15,6 +17,12 @@ public class App {
             while (sc.hasNextLine()) {
                 lines.append(sc.nextLine());
             }
+            sc.close();
+
+            lexer = new Lexer(lines.toString());
+            lexer.lex();
+
+            parser = new Parser(lexer.getTokens());
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + file.getAbsolutePath());
             System.exit(0);
