@@ -1,8 +1,8 @@
-package main.java.com.lang.repeto;
+package com.repeto.lang;
 
-import main.java.com.lang.repeto.parser.Expr;
-import main.java.com.lang.repeto.parser.Parser;
-import main.java.com.lang.repeto.parser.visitors.AstPrinter;
+import com.repeto.lang.parser.Expr;
+import com.repeto.lang.parser.Parser;
+import com.repeto.lang.parser.visitors.AstPrinter;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package main.java.com.lang.tools;
+package com.repeto.tools;
 
 import java.io.IOException;
 import java.io.PrintWriter;

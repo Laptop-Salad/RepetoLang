@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import main.java.com.lang.repeto.Lexer;
-import main.java.com.lang.repeto.Token;
-import main.java.com.lang.repeto.TokenType;
+import com.repeto.lang.Lexer;
+import com.repeto.lang.Token;
+import com.repeto.lang.TokenType;
 
 public class CompleteTest {
     @Test

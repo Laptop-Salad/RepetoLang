@@ -1,7 +1,7 @@
-package main.java.com.lang.repeto.parser.visitors;
+package com.repeto.lang.parser.visitors;
 
-import main.java.com.lang.repeto.Token;
-import main.java.com.lang.repeto.parser.Expr;
+import com.repeto.lang.Token;
+import com.repeto.lang.parser.Expr;
 
 public class AstPrinter implements Expr.Visitor<String> {
     public String print(Expr expr) { return expr.accept(this); }

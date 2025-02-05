@@ -1,4 +1,4 @@
-package main.java.com.lang.repeto;
+package com.repeto.lang;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;

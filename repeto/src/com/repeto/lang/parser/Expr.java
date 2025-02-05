@@ -1,6 +1,6 @@
-package main.java.com.lang.repeto.parser;
+package com.repeto.lang.parser;
 
-import main.java.com.lang.repeto.Token;
+import com.repeto.lang.Token;
 
 public abstract class Expr {
     public interface Visitor<R> {
