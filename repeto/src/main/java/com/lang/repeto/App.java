@@ -1,6 +1,8 @@
 package main.java.com.lang.repeto;
 
+import main.java.com.lang.repeto.parser.Expr;
 import main.java.com.lang.repeto.parser.Parser;
+import main.java.com.lang.repeto.parser.visitors.AstPrinter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +25,8 @@ public class App {
             lexer.lex();
 
             parser = new Parser(lexer.getTokens());
+            Expr expression = parser.parse();
+            System.out.println(new AstPrinter().print(expression));
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + file.getAbsolutePath());
             System.exit(0);
