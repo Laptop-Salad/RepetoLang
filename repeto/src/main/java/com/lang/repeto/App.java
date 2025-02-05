@@ -1,5 +1,9 @@
 package main.java.com.lang.repeto;
 
+import main.java.com.lang.repeto.parser.Expr;
+import main.java.com.lang.repeto.parser.Parser;
+import main.java.com.lang.repeto.parser.visitors.AstPrinter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -15,6 +19,14 @@ public class App {
             while (sc.hasNextLine()) {
                 lines.append(sc.nextLine());
             }
+            sc.close();
+
+            lexer = new Lexer(lines.toString());
+            lexer.lex();
+
+            parser = new Parser(lexer.getTokens());
+            Expr expression = parser.parse();
+            System.out.println(new AstPrinter().print(expression));
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + file.getAbsolutePath());
             System.exit(0);
