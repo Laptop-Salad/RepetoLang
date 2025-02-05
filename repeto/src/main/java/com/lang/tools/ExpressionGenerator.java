@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * java repeto/src/main/java/com/lang/tools/ExpressionGenerator.java repeto/src/main/java/com/lang/repeto/parser
+ */
 public class ExpressionGenerator {
     public static void main(String[] args) {
         if (args.length != 1) {
@@ -17,8 +20,7 @@ public class ExpressionGenerator {
         try {
             defineAST(outputDir, "Expr", Arrays.asList(
                     "Binary: Token operator, Expr left, Expr right",
-                    "Literal: Object value",
-                    "Operator: Token operator, Expr right"
+                    "Literal: Object value"
             ));
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
@@ -33,7 +35,7 @@ public class ExpressionGenerator {
         writer.println();
         writer.println("import main.java.com.lang.repeto.Token;");
         writer.println();
-        writer.println("abstract class " + baseName + " {");
+        writer.println("public abstract class " + baseName + " {");
 
         defineVisitor(writer, baseName, types);
 
@@ -45,25 +47,25 @@ public class ExpressionGenerator {
 
         // accept method for visitor pattern
         writer.println();
-        writer.println("    abstract <R> R accept(Visitor<R> visitor);");
+        writer.println("    public abstract <R> R accept(Visitor<R> visitor);");
 
         writer.println("}");
         writer.close();
     }
 
     private static void defineType(PrintWriter writer, String baseName, String className, String fields) throws IOException {
-        writer.println("    static class " + className + " extends " + baseName + " {");
+        writer.println("    public static class " + className + " extends " + baseName + " {");
 
         String[] fieldsArr = Arrays.stream(fields.split(",")).map(String::trim).toArray(String[]::new);
 
         // Fields
         for (String field : fieldsArr) {
-            writer.println("        final " + field + ";");
+            writer.println("        public final " + field + ";");
         }
 
         writer.println("");
 
-        writer.println("        " + className + "(" + fields + ") {");
+        writer.println("        public " + className + "(" + fields + ") {");
 
         // Store params in fields
         for (String field : fieldsArr) {
@@ -88,7 +90,7 @@ public class ExpressionGenerator {
     }
 
     private static void defineVisitor(PrintWriter writer, String baseName, List<String> types) throws IOException {
-        writer.println("    interface Visitor<R> {");
+        writer.println("    public interface Visitor<R> {");
 
         for (String type : types) {
             String name = type.split(":")[0].trim();
