@@ -19,7 +19,7 @@ public class ExpressionGenerator {
 
         try {
             defineAST(outputDir, "Expr", Arrays.asList(
-                    "Binary: Token operator, Expr left, Expr right",
+                    "Binary: Expr left, Token operator, Expr right",
                     "Literal: Object value"
             ));
         } catch (IOException e) {
