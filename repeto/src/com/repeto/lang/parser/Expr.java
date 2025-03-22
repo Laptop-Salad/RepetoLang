@@ -1,6 +1,6 @@
 package com.repeto.lang.parser;
 
-import com.repeto.lang.Token;
+import com.repeto.lang.lexer.Token;
 
 public abstract class Expr {
     public interface Visitor<R> {

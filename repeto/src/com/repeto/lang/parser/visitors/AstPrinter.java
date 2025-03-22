@@ -1,6 +1,6 @@
 package com.repeto.lang.parser.visitors;
 
-import com.repeto.lang.Token;
+import com.repeto.lang.lexer.Token;
 import com.repeto.lang.parser.Expr;
 
 public class AstPrinter implements Expr.Visitor<String> {

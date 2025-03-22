@@ -1,6 +1,6 @@
 package com.repeto.lang.ir;
 
-import com.repeto.lang.Token;
+import com.repeto.lang.lexer.Token;
 import com.repeto.lang.parser.Expr;
 
 import java.util.ArrayList;

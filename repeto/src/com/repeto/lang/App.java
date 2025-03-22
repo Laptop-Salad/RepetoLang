@@ -2,6 +2,7 @@ package com.repeto.lang;
 
 import com.repeto.lang.code_generator.CodeGenerator;
 import com.repeto.lang.ir.IRGenerator;
+import com.repeto.lang.lexer.Lexer;
 import com.repeto.lang.parser.Expr;
 import com.repeto.lang.parser.Parser;
 

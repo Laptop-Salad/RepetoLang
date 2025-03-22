@@ -1,7 +1,7 @@
 package com.repeto.lang.parser;
 
-import com.repeto.lang.Token;
-import com.repeto.lang.TokenType;
+import com.repeto.lang.lexer.Token;
+import com.repeto.lang.lexer.TokenType;
 
 import java.util.ArrayList;
 
