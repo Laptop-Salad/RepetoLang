@@ -1,7 +1,6 @@
-package com.repeto.lang.parser.visitors;
+package com.repeto.lang.parser;
 
-import com.repeto.lang.Token;
-import com.repeto.lang.parser.Expr;
+import com.repeto.lang.lexer.Token;
 
 public class AstPrinter implements Expr.Visitor<String> {
     public String print(Expr expr) { return expr.accept(this); }
@@ -18,6 +17,22 @@ public class AstPrinter implements Expr.Visitor<String> {
         }
 
         return parenthesize(expr.value.toString());
+    }
+
+    @Override
+    public String visitCallExpr(Expr.FunctionCall expr) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("(").append(expr.name);
+
+        for (Expr arg : expr.arguments) {
+            sb.append(" ");
+            sb.append(arg.accept(this));
+        }
+
+        sb.append(")");
+
+        return sb.toString();
     }
 
     private String parenthesize(String name, Expr... exprs) {

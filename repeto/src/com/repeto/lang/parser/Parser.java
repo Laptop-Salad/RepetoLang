@@ -1,7 +1,7 @@
 package com.repeto.lang.parser;
 
-import com.repeto.lang.Token;
-import com.repeto.lang.TokenType;
+import com.repeto.lang.lexer.Token;
+import com.repeto.lang.lexer.TokenType;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,33 @@ public class Parser {
     }
 
     private Expr primary() {
+        if (
+            current().getTokenType() == TokenType.IDENTIFIER &&
+            peek().getTokenType() == TokenType.OPENING_PARENTHESIS
+        ) {
+            return function();
+        }
+
         return new Expr.Literal(current().getValue());
+    }
+
+    private Expr function() {
+        ArrayList<Expr> args = new ArrayList<>();
+        String functionName = current().getValue();
+
+        advance();
+        advance();
+
+        while (peek().getTokenType() != TokenType.CLOSING_PARENTHESIS) {
+            Expr argument = expression();
+            args.add(argument);
+        }
+
+        advance();
+
+        Expr[] argumentArr = args.toArray(new Expr[0]);
+
+        return new Expr.FunctionCall(functionName, argumentArr);
     }
 
     private boolean match(TokenType... types) {

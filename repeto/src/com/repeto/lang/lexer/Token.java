@@ -1,4 +1,4 @@
-package com.repeto.lang;
+package com.repeto.lang.lexer;
 
 public class Token {
     private final String value;

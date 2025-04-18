@@ -1,11 +1,16 @@
 package com.repeto.lang.parser;
 
-import com.repeto.lang.Token;
+import com.repeto.lang.lexer.Token;
+import com.repeto.lang.library.FunctionHelper;
+import com.repeto.lang.semanticanalysis.Type;
 
 public abstract class Expr {
+    public Type inferredType;
+
     public interface Visitor<R> {
         R visitBinaryExpr(Binary expr);
         R visitLiteralExpr(Literal expr);
+        R visitCallExpr(FunctionCall expr);
     }
 
     public static class Binary extends Expr {
@@ -38,6 +43,18 @@ public abstract class Expr {
         }
     }
 
+    public static class FunctionCall extends Expr {
+        public final String name;
+        public final Expr[] arguments;
+
+        public FunctionCall(String name, Expr[] arguments) {
+            this.name = name;
+            this.arguments = FunctionHelper.getFullArgs(this.name, arguments);
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) { return visitor.visitCallExpr(this); }
+    }
 
     public abstract <R> R accept(Visitor<R> visitor);
 }
