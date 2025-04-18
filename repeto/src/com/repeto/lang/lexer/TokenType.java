@@ -3,6 +3,7 @@ package com.repeto.lang.lexer;
 public enum TokenType {
     VARIABLE,
     IDENTIFIER,
+    FUNCTION,
 
     PLUS,
     MINUS,
@@ -30,7 +31,9 @@ public enum TokenType {
             case
                 VARIABLE,
                 INTEGER,
-                IDENTIFIER -> null;
+                IDENTIFIER,
+                FUNCTION
+                -> null;
             case PLUS -> "+";
             case MINUS -> "-";
             case DIVIDE -> "/";

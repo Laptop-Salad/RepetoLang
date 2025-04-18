@@ -1,10 +1,10 @@
 package com.repeto.lang;
 
-import com.repeto.lang.code_generator.CodeGenerator;
-import com.repeto.lang.ir.IRGenerator;
+import com.repeto.lang.codegenerator.CodeGenerator;
 import com.repeto.lang.lexer.Lexer;
 import com.repeto.lang.parser.Expr;
 import com.repeto.lang.parser.Parser;
+import com.repeto.lang.semanticanalysis.SemanticAnalyser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,12 +15,13 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         File file = new File(System.getProperty("user.dir") + "/examples/Year.repeto");
-        File compiled = new File(System.getProperty("user.dir") + "/compiled/Year.s");
+        File compiled = new File(System.getProperty("user.dir") + "/compiled/Year.c");
         StringBuilder lines = new StringBuilder();
 
         Lexer lexer;
         Parser parser;
-        IRGenerator irGenerator;
+        SemanticAnalyser semanticAnalyser;
+
         CodeGenerator codeGenerator;
 
         try (Scanner sc = new Scanner(file)) {
@@ -37,22 +38,22 @@ public class App {
             parser = new Parser(lexer.getTokens());
             Expr expression = parser.parse();
 
-            // generate ir
-            irGenerator = new IRGenerator(expression);
-            String ir = irGenerator.generateIR();
+            // semantic analysis
+            semanticAnalyser = new SemanticAnalyser();
+            expression = semanticAnalyser.analyse(expression);
 
             // generate assembly
-            codeGenerator = new CodeGenerator(ir);
-            String code = codeGenerator.generateCode();
+            codeGenerator = new CodeGenerator(expression);
+            String code = codeGenerator.generate();
 
             // write compiled to file
             FileWriter writer = new FileWriter(compiled);
             writer.write(code);
             writer.close();
 
-            // create object file from
-            Runtime rt = Runtime.getRuntime();
-            rt.exec("clang " + System.getProperty("user.dir") + "/compiled/Year.s" + " -o " + System.getProperty("user.dir") + "/executables/Year");
+//            // create object file from
+//            Runtime rt = Runtime.getRuntime();
+//            rt.exec("clang " + System.getProperty("user.dir") + "/compiled/Year.s" + " -o " + System.getProperty("user.dir") + "/executables/Year -lc");
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + file.getAbsolutePath());
