@@ -22,6 +22,7 @@ public class CodeGenerator {
         code.append("int main() {\n");
         for (Expr expr : expr) {
             code.append(astWalker.walk(expr));
+            code.append("\n");
         }
         code.append("return 0;\n");
         code.append("}");
