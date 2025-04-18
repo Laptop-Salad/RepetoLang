@@ -1,5 +1,7 @@
 # RepetoLang
 
+[Read the docs](https://decorous-antique-b5f.notion.site/Repeto-Language-Documentation-1d9bb5c8004a80fb8fb1dda464765d60)
+
 - <b>Simplicity</b>: simple syntax and setup which makes the language good for beginners.
 - <b>Flexibility in application architecture</b>: meaning it doesn’t force you into a specific paradigm (like heavy reliance on classes), which is attractive if you want to choose your own design patterns.
 - <b>Dual typing system</b>: allowing you to choose the level of type safety you need for different parts of your application.
