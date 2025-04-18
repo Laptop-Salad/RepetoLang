@@ -2,10 +2,12 @@ package com.repeto.lang.codegenerator;
 
 import com.repeto.lang.parser.Expr;
 
-public class CodeGenerator {
-    private final Expr expr;
+import java.util.List;
 
-    public CodeGenerator(Expr expr) {
+public class CodeGenerator {
+    private final List<Expr> expr;
+
+    public CodeGenerator(List<Expr> expr) {
         this.expr = expr;
     }
 
@@ -18,7 +20,9 @@ public class CodeGenerator {
         code.append("#include \"../repeto/library/expr.h\"\n");
         code.append("#include \"../repeto/library/io.h\"\n");
         code.append("int main() {\n");
-        code.append(astWalker.walk(this.expr));
+        for (Expr expr : expr) {
+            code.append(astWalker.walk(expr));
+        }
         code.append("return 0;\n");
         code.append("}");
 

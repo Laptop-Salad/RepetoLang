@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -37,14 +38,14 @@ public class App {
 
             // generate ast
             parser = new Parser(lexer.getTokens());
-            Expr expression = parser.parse();
+            List<Expr> expressions = parser.parse();
 
             // semantic analysis
             semanticAnalyser = new SemanticAnalyser();
-            expression = semanticAnalyser.analyse(expression);
+            expressions = semanticAnalyser.analyse(expressions);
 
-            // generate assembly
-            codeGenerator = new CodeGenerator(expression);
+            // generate c code
+            codeGenerator = new CodeGenerator(expressions);
             String code = codeGenerator.generate();
 
             // write compiled to file

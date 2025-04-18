@@ -2,9 +2,15 @@ package com.repeto.lang.semanticanalysis;
 
 import com.repeto.lang.parser.Expr;
 
+import java.util.List;
+
 public class SemanticAnalyser implements Expr.Visitor<Expr> {
-    public Expr analyse(Expr expr) {
-        return expr.accept(this);
+    public List<Expr> analyse(List<Expr> expr) {
+        for (Expr e : expr) {
+            e.accept(this);
+        };
+
+        return expr;
     }
 
     @Override

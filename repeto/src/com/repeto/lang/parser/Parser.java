@@ -4,6 +4,7 @@ import com.repeto.lang.lexer.Token;
 import com.repeto.lang.lexer.TokenType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Parser {
     private ArrayList<Token> tokens;
@@ -13,8 +14,15 @@ public class Parser {
         this.tokens = tokens;
     }
 
-    public Expr parse() {
-        return expression();
+    public List<Expr> parse() {
+        List<Expr> exprs = new ArrayList<Expr>();
+
+        while (!isAtEnd()) {
+            exprs.add(expression());
+            advance();
+        }
+
+        return exprs;
     }
 
     private Expr expression() {
