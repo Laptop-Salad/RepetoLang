@@ -11,7 +11,7 @@ In the long run, this language is designed to be a general purpose language but 
 
 # Output
 ```
-out $my_age;
+print($my_age);
 ```
 
 # Arithmetic
