@@ -13,7 +13,7 @@ public class AstPrinter implements Expr.Visitor<String> {
     @Override
     public String visitLiteralExpr(Expr.Literal expr) {
         if (expr.value instanceof Token) {
-            return ((Token) expr.value).getValue();
+            return (String) ((Token) expr.value).getValue();
         }
 
         return parenthesize(expr.value.toString());

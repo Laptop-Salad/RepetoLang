@@ -9,9 +9,9 @@ public class IO implements Function {
         // Add count
         fullArgs[0] = new Expr.Literal(output.length);
 
-        for (int i = 1; i <= output.length; i++) {
-            Expr expr = output[i - 1];
-            fullArgs[i] = expr;
+        for (int i = 0; i < output.length; i++) {
+            Expr expr = output[i];
+            fullArgs[i+1] = expr;
         }
 
         return fullArgs;

@@ -1,1 +1,2 @@
-print(1 * 18)
+print("My name is Amanda");
+print("My name is Amanda");

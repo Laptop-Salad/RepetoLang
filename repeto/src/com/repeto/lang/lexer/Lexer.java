@@ -64,20 +64,38 @@ public class Lexer {
                 break;
 
             case '/':
-                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder commentBuilder = new StringBuilder();
 
                 if (match('/')) {
                     while (this.hasNext() && peek() != '\n') {
-                        stringBuilder.append(character);
+                        commentBuilder.append(character);
                     }
 
-                    addToken(TokenType.COMMENT, stringBuilder.toString());
+                    addToken(TokenType.COMMENT, commentBuilder.toString());
                 } else {
                     addToken(TokenType.DIVIDE);
                 }
 
                 break;
-            
+
+            case '"':
+                StringBuilder stringBuilder = new StringBuilder();
+
+                this.next();
+
+                while (this.hasNext() && peek() != '"') {
+                    stringBuilder.append(this.current());
+
+                    this.next();
+                }
+
+                stringBuilder.append(this.current());
+
+                addToken(TokenType.STRING, stringBuilder.toString());
+
+                this.next();
+                break;
+
             case '$': this.handleVariable(); break;
 
             default:
@@ -109,7 +127,7 @@ public class Lexer {
     public void handleDigits() {
         String value = consumeWhile(Character::isDigit);
 
-        addToken(TokenType.INTEGER, value);
+        addToken(TokenType.INTEGER, Integer.parseInt(value));
     }
 
     public void handleVariable() {
@@ -139,7 +157,7 @@ public class Lexer {
         this.tokens.add(new Token(tokenType, null));
     }
 
-    public void addToken(TokenType tokenType, String value) {
+    public void addToken(TokenType tokenType, Object value) {
         this.tokens.add(new Token(tokenType, value));
     }
 

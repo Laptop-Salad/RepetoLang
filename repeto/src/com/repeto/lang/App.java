@@ -2,6 +2,7 @@ package com.repeto.lang;
 
 import com.repeto.lang.codegenerator.CodeGenerator;
 import com.repeto.lang.lexer.Lexer;
+import com.repeto.lang.lexer.Token;
 import com.repeto.lang.parser.Expr;
 import com.repeto.lang.parser.Parser;
 import com.repeto.lang.semanticanalysis.SemanticAnalyser;
@@ -50,11 +51,6 @@ public class App {
             FileWriter writer = new FileWriter(compiled);
             writer.write(code);
             writer.close();
-
-//            // create object file from
-//            Runtime rt = Runtime.getRuntime();
-//            rt.exec("clang " + System.getProperty("user.dir") + "/compiled/Year.s" + " -o " + System.getProperty("user.dir") + "/executables/Year -lc");
-
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + file.getAbsolutePath());
             System.exit(0);

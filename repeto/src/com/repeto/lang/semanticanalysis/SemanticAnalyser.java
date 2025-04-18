@@ -4,13 +4,13 @@ import com.repeto.lang.parser.Expr;
 
 public class SemanticAnalyser implements Expr.Visitor<Expr> {
     public Expr analyse(Expr expr) {
-        return expr;
+        return expr.accept(this);
     }
 
     @Override
     public Expr visitBinaryExpr(Expr.Binary expr) {
-        analyse(expr.left);
-        analyse(expr.right);
+        expr.left.accept(this);
+        expr.right.accept(this);
 
         // Check if the left and right operands have compatible types
         if (expr.left.inferredType != expr.right.inferredType) {
@@ -28,10 +28,16 @@ public class SemanticAnalyser implements Expr.Visitor<Expr> {
 
     @Override
     public Expr visitLiteralExpr(Expr.Literal expr) {
-        if (expr.value instanceof Integer) {
-            expr.inferredType = Type.INTEGER;
-        } else if (expr.value instanceof String) {
-            expr.inferredType = Type.STRING;
+        switch (expr.value.getClass().getSimpleName()) {
+            case "String":
+                expr.inferredType = Type.STRING;
+                break;
+            case "Integer":
+                expr.inferredType = Type.INTEGER;
+                break;
+            default:
+                // No other possible types so...
+                throw new IllegalStateException("Invalid type");
         }
 
         return expr;
@@ -40,6 +46,10 @@ public class SemanticAnalyser implements Expr.Visitor<Expr> {
     @Override
     public Expr visitCallExpr(Expr.FunctionCall expr) {
         expr.inferredType = Type.NULL;
+
+        for (Expr arg : expr.arguments) {
+            arg.accept(this);
+        }
 
         return expr;
     }

@@ -4,6 +4,8 @@ import com.repeto.lang.lexer.Token;
 import com.repeto.lang.library.FunctionHelper;
 import com.repeto.lang.semanticanalysis.Type;
 
+import java.util.Arrays;
+
 public abstract class Expr {
     public Type inferredType;
 
@@ -34,6 +36,7 @@ public abstract class Expr {
         public final Object value;
 
         public Literal(Object value) {
+//            System.out.println(value + "=" + value.getClass().getSimpleName());
             this.value = value;
         }
 

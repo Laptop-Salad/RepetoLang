@@ -24,7 +24,7 @@ public class Parser {
     private Expr term() {
         Expr expr = factor();
 
-        while (match(TokenType.MINUS, TokenType.PLUS)) {
+        if (match(TokenType.MINUS, TokenType.PLUS)) {
             Token operator = current();
             advance();
             Expr right = factor();
@@ -37,7 +37,7 @@ public class Parser {
     private Expr factor() {
         Expr expr = primary();
 
-        while (match(TokenType.TIMES, TokenType.DIVIDE)) {
+        if (match(TokenType.TIMES, TokenType.DIVIDE)) {
             Token operator = current();
             advance();
             Expr right = primary();
@@ -60,17 +60,27 @@ public class Parser {
 
     private Expr function() {
         ArrayList<Expr> args = new ArrayList<>();
-        String functionName = current().getValue();
+        String functionName = (String) current().getValue();
 
-        advance();
-        advance();
+        advance(); // past function name
 
-        while (peek().getTokenType() != TokenType.CLOSING_PARENTHESIS) {
-            Expr argument = expression();
-            args.add(argument);
+        if (current().getTokenType() != TokenType.OPENING_PARENTHESIS) {
+            throw new RuntimeException("Expected '(' after function name");
         }
 
-        advance();
+        advance(); // past opening parenthesis
+
+        if (current().getTokenType() != TokenType.CLOSING_PARENTHESIS) {
+            do {
+                args.add(expression());
+            } while (match(TokenType.COMMA));
+        }
+
+        advance(); // consume ')'
+
+        if (current().getTokenType() != TokenType.CLOSING_PARENTHESIS) {
+            throw new RuntimeException("Expected ')' after arguments");
+        }
 
         Expr[] argumentArr = args.toArray(new Expr[0]);
 
@@ -101,10 +111,12 @@ public class Parser {
     }
 
     private boolean isAtEnd() {
-        return currentIndex == this.tokens.size();
+        return currentIndex == this.tokens.size() - 1;
     }
 
     private Token peek() {
+        if (isAtEnd()) { return null; }
+
         return this.tokens.get(currentIndex + 1);
     }
 

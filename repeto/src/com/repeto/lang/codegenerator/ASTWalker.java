@@ -1,6 +1,7 @@
 package com.repeto.lang.codegenerator;
 
 import com.repeto.lang.parser.Expr;
+import com.repeto.lang.semanticanalysis.Type;
 
 public class ASTWalker implements Expr.Visitor<String> {
     public String walk(Expr expr) {
@@ -9,7 +10,14 @@ public class ASTWalker implements Expr.Visitor<String> {
 
     @Override
     public String visitLiteralExpr(Expr.Literal expr) {
-        return "createLiteralInt(" + expr.value.toString() + ")";
+        if (expr.inferredType == Type.INTEGER) {
+            return "createLiteralInt(" + expr.value + ")";
+        } else if (expr.inferredType == Type.STRING) {
+            return "createLiteralString(\"" + expr.value + "\")";
+        }
+
+        // No other possible types so...
+        throw new IllegalStateException("Invalid type");
     }
 
     @Override

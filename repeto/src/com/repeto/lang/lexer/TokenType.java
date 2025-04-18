@@ -16,10 +16,12 @@ public enum TokenType {
     EQUALS_EQUALS,
     
     INTEGER,
+    STRING,
     
     SEMICOLON,
     
     COMMENT,
+    COMMA,
 
     OPENING_PARENTHESIS,
     CLOSING_PARENTHESIS,
@@ -32,7 +34,8 @@ public enum TokenType {
                 VARIABLE,
                 INTEGER,
                 IDENTIFIER,
-                FUNCTION
+                FUNCTION,
+                STRING
                 -> null;
             case PLUS -> "+";
             case MINUS -> "-";
@@ -43,6 +46,7 @@ public enum TokenType {
             case EQUALS_EQUALS -> "==";
             case SEMICOLON -> ";";
             case COMMENT -> "//";
+            case COMMA -> ",";
             case OPENING_PARENTHESIS -> "(";
             case CLOSING_PARENTHESIS -> ")";
             case EOF -> "EOF";
