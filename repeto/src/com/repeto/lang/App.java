@@ -2,7 +2,6 @@ package com.repeto.lang;
 
 import com.repeto.lang.codegenerator.CodeGenerator;
 import com.repeto.lang.lexer.Lexer;
-import com.repeto.lang.lexer.Token;
 import com.repeto.lang.parser.Expr;
 import com.repeto.lang.parser.Parser;
 import com.repeto.lang.semanticanalysis.SemanticAnalyser;

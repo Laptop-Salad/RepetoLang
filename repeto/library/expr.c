@@ -15,14 +15,6 @@ const char* typeToString(Type type) {
   }
 }
 
-const char typeToFormat(Type type) {
-  switch (type) {
-    case TYPE_INT: return 'd';
-    case TYPE_STRING: return 's';
-    default: return 'n';
-  }
-}
-
 Expr* createLiteralInt(int value) {
   LiteralIntExpr* expr = (LiteralIntExpr*)malloc(sizeof(LiteralIntExpr));
   expr->base.type = TYPE_INT;

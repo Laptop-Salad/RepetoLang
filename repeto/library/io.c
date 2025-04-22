@@ -8,6 +8,10 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+void repeat(Expr* expression, int times) {
+
+}
+
 void print(Expr* countExpr, ...) {
     va_list args;
     va_start(args, countExpr);

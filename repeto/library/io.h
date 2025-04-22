@@ -8,5 +8,6 @@
 #include "expr.h"
 
 void print(Expr* count, ...);
+void repeat(Expr* expression, int times);
 
 #endif //IO_H
